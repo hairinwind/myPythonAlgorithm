@@ -21,13 +21,16 @@ class Solution(object):
         for i in range(0, len(piles)):
             dp[i][i] = (piles[i], 0)
         
-        for i in range(1, len(piles)):  #need loop 1 [0,1] [1,2] [2,3] 2 [0,2] [1,3] 3 [0,3]
-            x = 0
-            y = i
-            while y < len(piles):
-                right = min(dp[x+1][y][0], dp[x][y-1][0])
-                left = sum(piles[x:y+1]) - right
-                dp[x][y] = (left, right)
+        for i in range(1, len(piles)):  # i=1 means 2 piles, i=2 means 3 piles
+            x = 0 # start index
+            y = x + i # end index
+            while y < len(piles): # 
+                left = piles[x] + dp[x+1][y][1]
+                right = piles[y] + dp[x][y-1][1] 
+                if left > right:
+                    dp[x][y] = (left, dp[x+1][y][0])
+                else:
+                    dp[x][y] = (right, dp[x][y-1][0])
                 x += 1
                 y += 1
         
