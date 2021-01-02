@@ -23,7 +23,7 @@ class Solution(object):
             if currentInterval is None:
                 currentInterval = interval
                 continue
-            if interval[0] < currentInterval[1]:
+            if interval[0] <= currentInterval[1]:
                 overlapCount += 1
             else:
                 currentInterval = interval
